@@ -1,0 +1,51 @@
+/** title bar **/
+.title-bar {
+  background: transparent;
+  display: flex;
+  align-items: flex-end;
+  padding: 0.75rem 0;
+
+  border-bottom: 1px solid lightgray;
+}
+.title-bar h3 {
+  flex-grow: 1;
+  margin: 0;
+  color: #212529;
+}
+
+/** Sticky buttons **/
+.table-sticky-buttons {
+  /* padding: 5px; */
+  z-index: 9;
+  /* border-bottom: 1px solid grey; */
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+}
+.table-sticky-buttons button {
+  margin: 0.25rem;
+  border: 1px solid transparent !important;
+  background: dodgerblue !important;
+}
+.table-sticky-buttons button.btn-secondary {
+  background: rgb(212, 169, 0) !important;
+}
+.table-sticky-buttons button:hover {
+  border: 1px solid gray;
+  opacity: 0.8;
+}
+.table-sticky-buttons button.danger {
+  background: crimson !important;
+}
+/** filter **/
+.title-bar .filter {
+  margin: 0;
+}
+.title-bar .filter input,
+.filter label {
+  border-bottom: 1px solid darkgray;
+  padding: 5px;
+  margin: 0;
+}
+.filter label {
+}

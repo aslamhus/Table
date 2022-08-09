@@ -1,0 +1,199 @@
+.table {
+  position: relative;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  width: 100%;
+}
+
+.table .th,
+.table .table-row {
+  position: relative;
+  width: 100%;
+  padding: 0;
+  /** Defines the border color **/
+  color: rgb(224, 224, 224);
+}
+.table .table-row p {
+  color: darkgray;
+  margin: 0;
+}
+/** Table buttons **/
+.table .table-row-btn-wrapper {
+  position: relative;
+  padding: 0;
+  margin: 0;
+}
+.table-left-btns-container,
+.table-right-btns-container {
+  flex-direction: row;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+}
+.table-left-btns-container {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+
+  transform: translateX(-100%);
+  display: flex;
+
+  text-align: right;
+}
+.table-right-btns-container {
+  position: absolute;
+  right: 0;
+  top: 0;
+
+  transform: translateX(100%);
+  height: 100%;
+}
+.table-edit-btn-container {
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 30px;
+  text-align: center;
+}
+.table-edit-btn-container button {
+  background: transparent;
+  border: none;
+}
+.table-row-btn-wrapper button i {
+  color: dodgerblue;
+}
+.table-row-btn-wrapper button.danger {
+  /* background: transparent !important;
+    border: transparent !important; */
+}
+.table-row-btn-wrapper button.danger i {
+  color: crimson !important;
+}
+/** header **/
+.table .th {
+  background: darkgray;
+  color: white;
+  position: -webkit-sticky !important;
+  position: sticky !important;
+  top: 0;
+  z-index: 1;
+  align-self: flex-start;
+  height: auto;
+  /* width: calc(100% + 10px); */
+  /* margin-left: -5px; */
+  /* border-left: 5px solid lightgray;
+    border-right: 5px solid lightgray; */
+}
+.caret-container {
+  position: absolute;
+  right: 2px;
+}
+.table .th .th-container {
+  width: 100%;
+}
+
+/** Row **/
+.table .table-row .table-row-cells,
+.table .th .th-container {
+  display: flex;
+  flex-direction: row;
+  position: relative;
+  /* flex-wrap: wrap; */
+}
+.table .table-row.danger,
+.table .th.danger {
+  background: rgb(255, 206, 216);
+}
+
+.table .table-row.success,
+.table .th.success {
+  color: rgb(172, 235, 191);
+  background: rgb(203, 255, 219);
+}
+/** hover row **/
+.table .table-row:hover {
+  opacity: 0.8;
+}
+/** selected row **/
+.table-row.selected {
+  background: lightblue !important;
+}
+.table-row.selected > div {
+  border-color: dodgerblue !important;
+}
+
+.table .table-row.danger.selected,
+.table .th.danger.selected {
+  background: rgb(218, 162, 255);
+}
+
+.table .th .th-container > div,
+.table .table-row .table-row-cells > div {
+  border: 1px solid currentColor;
+  padding: 5px 10px;
+}
+
+/** Cell **/
+.table .th .th-container > div,
+.table .table-row .table-row-cells div {
+  padding: 0.25rem;
+  position: relative;
+  overflow: hidden;
+  flex-grow: 1;
+}
+.cell-l {
+  width: 15%;
+}
+.cell-m {
+  width: 10%;
+}
+.cell-sm {
+  width: 65px;
+}
+.cell-xs {
+  width: 45px;
+}
+.cell-xxs {
+  /** Select checkbox cell, cannot have variable width **/
+  width: 30px !important;
+}
+.cell-hidden {
+  visibility: hidden;
+  width: 0;
+  height: 0;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+/** order by **/
+.table .th .order-by,
+.table .table-row .cell-highlight {
+  background-color: rgba(173, 216, 230, 0.235);
+}
+.cell-center {
+  text-align: center;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.table [class^='cell'] {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+/** Header cell **/
+.table .th .th-container > div {
+  display: flex;
+  align-items: flex-start;
+  /* justify-content: flex-start; */
+}
+.th-container button {
+  background: none;
+  border: none;
+  color: rgb(234, 234, 234);
+  font-weight: bold;
+}
+.th-container button:enabled:hover {
+  color: rgb(0, 0, 0);
+}

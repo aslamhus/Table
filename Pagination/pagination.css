@@ -1,0 +1,32 @@
+.pagination {
+  margin: 1rem 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.pagination em {
+  color: gray;
+  font-style: italic;
+  font-weight: normal;
+  font-size: 1em;
+}
+.pagination button,
+.pagination a,
+.pagination .dropdown-item a {
+  font-size: 1em;
+}
+/** Pagination buttons **/
+.pagination .pagination-btn {
+  background: transparent;
+  border: 1px solid gray;
+  margin: 0 0.25rem;
+}
+.pagination .pagination-btn.current-page {
+  border-color: dodgerblue;
+  background: lightblue;
+}
+/** Page Stats **/
+.pagination .pagination-page-stats {
+  display: flex;
+  align-items: center;
+}
