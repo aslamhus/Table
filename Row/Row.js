@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { findByType } from '../utils/utils';
-import SelectCheckbox from './SelectCheckbox';
+import { useTable } from '../hooks/useTable';
+import Cells from '../Cells';
 /**
  * 
  * Table Row
@@ -15,16 +16,15 @@ import SelectCheckbox from './SelectCheckbox';
  * @example
  * 
  * 
- *  {myData.map((data) => {
+ *  {myrowData.map((rowData) => {
         return (
-          <Table.Row key={data.id} rowId={data.id}>
+          <Table.Row key={rowData.id} rowId={rowData.id}>
             <p>I'm a table row</p>
           </Table.Row>
         );
       })}
  */
-function Row({ rowId, className, handleSelect, selectedRows, children, as, orderOption }) {
-  const selected = selectedRows?.[rowId];
+function Row({ rowId, rowData, as, className, children, selected }) {
   const TagName = as || 'div';
 
   const render = (ComponentType, props) => {
@@ -40,7 +40,7 @@ function Row({ rowId, className, handleSelect, selectedRows, children, as, order
     if (child) {
       return <Cells {...props}>{child.props.children}</Cells>;
     }
-    return null;
+    return <Cells {...props} />;
   };
 
   return (
@@ -53,7 +53,11 @@ function Row({ rowId, className, handleSelect, selectedRows, children, as, order
     >
       <div className="table-row-btn-wrapper">
         <div className="table-left-btns-container">{render(LeadingButtons)}</div>
-        {renderCells({ rowId, selected, handleSelect, orderOption })}
+        {renderCells({
+          rowId,
+          rowData,
+          selected,
+        })}
 
         <div className="table-right-btns-container">{render(TrailingButtons)}</div>
       </div>
@@ -68,44 +72,6 @@ const LeadingButtons = ({ children }) => {
 
 const TrailingButtons = ({ children }) => {
   return children;
-};
-
-const Cells = ({ rowId, children, selected, handleSelect, orderOption }) => {
-  const cellsContainerRef = useRef();
-
-  /**
-   * Add column id to any children of row component that are cells.
-   */
-  useEffect(() => {
-    if (cellsContainerRef.current) {
-      const cells = cellsContainerRef.current.querySelectorAll('.cell');
-      Array.from(cells).forEach((cell, index) => {
-        const id = index + 1;
-        cell.dataset.columnId = id;
-        if (orderOption?.columnId == id) {
-          cell.classList.add('cell-highlight');
-        } else {
-          cell.classList.remove('cell-highlight');
-        }
-      });
-    }
-  }, [children]);
-
-  return (
-    <div ref={cellsContainerRef} className="table-row-cells">
-      {children}
-      <SelectCheckbox
-        isSelected={selected}
-        handleSelect={() => {
-          if (rowId) {
-            handleSelect(rowId);
-          } else {
-            console.error("couldn't select SelectCheckbox, no id found");
-          }
-        }}
-      />
-    </div>
-  );
 };
 
 const Footer = ({ children }) => {

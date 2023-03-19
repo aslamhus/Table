@@ -1,18 +1,16 @@
 import React, { useCallback, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Spinner from 'react-bootstrap/Spinner';
+import { useTable } from '../hooks/useTable';
 import './title-bar.css';
 
-export default function TitleBar({
-  children,
-  data,
-  title,
-  isSelected,
-  onFilterChange,
-  onDelete,
-  selectedRows,
-  removeRows,
-}) {
+export default function TitleBar({ title, onFilterChange, onDelete, children }) {
+  const {
+    isSelected,
+    removeRows,
+    state: { data, selectedRows },
+  } = useTable({});
+
   const [filterInputValue, setFilterInputValue] = useState('');
   const [deleting, setDeleting] = useState(false);
 

@@ -34,16 +34,16 @@ import { renderRow } from '../utils/render';
  *  )
  * }
  */
-export default function Body({ data, children, handleSelect, selectedRows, orderOption }) {
+export default function Body({ data, children, selectedRows }) {
+  console.log('body data', data);
   return (
     <div className="table-body">
-      {data.map((row, index) => {
+      {data.map((rowData, index) => {
+        const rowId = index + 1;
         return renderRow(children, {
-          data: row,
-          rowId: index + 1,
-          handleSelect,
-          selectedRows,
-          orderOption,
+          rowData,
+          rowId,
+          selected: selectedRows?.[rowId],
         });
       })}
     </div>

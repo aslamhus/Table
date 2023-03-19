@@ -1,15 +1,29 @@
-import { useEffect, useState } from 'react';
-
+import { useContext, useEffect, useState } from 'react';
+import { TableContext } from '../Context/context';
+import { actions } from '../Context/reducer';
 /**
  *
  * @param {array} dataSource
  * dataSource must be an array of objects with a property named id of type int
  * whose values must be unique integers.
  */
-export const useTable = ({ dataSource, onChangeOrder }) => {
-  const [data, setData] = useState([]);
-  const [orderOption, setOrderOption] = useState({});
-  const [selectedRows, setSelectedRows] = useState({});
+export const useTable = () => {
+  const [state, dispatch] = useContext(TableContext);
+  const { data, selectedRows, enableCheckbox, callbacks, headers, orderOption } = state;
+
+  const selectRows = (rows) => dispatch({ type: actions.selectRows, payload: rows });
+
+  const setData = (data) => dispatch({ type: actions.setData, payload: data });
+
+  const setCallbacks = (callbacksObject) =>
+    dispatch({ type: actions.setCallbacks, payload: callbacksObject });
+
+  const setEnableCheckbox = (bool) => dispatch({ type: actions.setEnableCheckbox, payload: bool });
+
+  const setHeaders = (headers) => dispatch({ type: actions.setHeaders, payload: headers });
+
+  const setOrderOption = ({ name, direction, columnId }) =>
+    dispatch({ type: actions.setOrderOption, payload: { name, direction, columnId } });
 
   const selectAll = (event) => {
     const allRows = isSelected()
@@ -20,26 +34,22 @@ export const useTable = ({ dataSource, onChangeOrder }) => {
             acc[index + 1] = true;
             return acc;
           }, {});
-    setSelectedRows(allRows);
+    selectRows(allRows);
   };
 
-  const isSelected = () => {
-    return Object.keys(selectedRows).length > 0;
-  };
+  const isSelected = () => Object.keys(selectedRows).length > 0;
 
+  /**
+   * Toggle the selected state of a row
+   */
   const handleSelect = (id) => {
-    setSelectedRows((prev) => {
-      /**
-       * Toggle the selected state of a row
-       */
-      const newRows = { ...prev };
-      if (newRows[id]) {
-        delete newRows[id];
-      } else {
-        newRows[id] = true;
-      }
-      return newRows;
-    });
+    const newRows = { ...selectedRows };
+    if (newRows[id]) {
+      delete newRows[id];
+    } else {
+      newRows[id] = true;
+    }
+    selectRows(newRows);
   };
 
   const setOrder = (event) => {
@@ -53,8 +63,8 @@ export const useTable = ({ dataSource, onChangeOrder }) => {
     const columnId = column.dataset?.columnId;
     // reverse direction
     const direction = target.dataset?.direction == 'ASC' ? 'DESC' : 'ASC';
-    if (onChangeOrder instanceof Function) {
-      onChangeOrder({ name, direction, columnId });
+    if (callbacks.onChangeOrder instanceof Function) {
+      callbacks.onChangeOrder({ name, direction, columnId });
     }
     setOrderOption({ name, direction, columnId });
   };
@@ -71,17 +81,8 @@ export const useTable = ({ dataSource, onChangeOrder }) => {
     /**
      * After removing rows, clear all seleted rows
      */
-    setSelectedRows({});
+    selectRows({});
   };
-
-  useEffect(() => {
-    setData(
-      dataSource.map((row, index) => {
-        row.uuid = Date.now();
-        return row;
-      })
-    );
-  }, [dataSource]);
 
   return {
     isSelected,
@@ -89,6 +90,16 @@ export const useTable = ({ dataSource, onChangeOrder }) => {
     handleSelect,
     removeRows,
     setOrder,
-    state: { data, selectedRows, orderOption },
+    setData,
+    setCallbacks,
+    setHeaders,
+    setEnableCheckbox,
+    state: {
+      data,
+      selectedRows,
+      orderOption,
+      headers,
+      enableCheckbox,
+    },
   };
 };
