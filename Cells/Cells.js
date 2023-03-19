@@ -27,9 +27,7 @@ const Cells = ({ rowData, rowId, children, selected }) => {
       console.log('header', header, value);
       return (
         <Cell key={`cell-${key}-${index}-rowId`} size={header.size}>
-          <p>
-            {header.name} - {value}
-          </p>
+          <p>{value}</p>
         </Cell>
       );
     });
