@@ -75,10 +75,17 @@ export default function TitleBar({ title, onFilterChange, onDelete, children }) 
     <div className="title-bar">
       {title && <h3>{title}</h3>}
       <div className="table-sticky-buttons">
-        <div className="filter">
-          <label htmlFor="filter">Filter</label>
-          <input type="text" name="filter" value={filterInputValue} onChange={handleChange}></input>
-        </div>
+        {onFilterChange && (
+          <div className="filter">
+            <label htmlFor="filter">Filter</label>
+            <input
+              type="text"
+              name="filter"
+              value={filterInputValue}
+              onChange={handleChange}
+            ></input>
+          </div>
+        )}
         {children}
         {isSelected && isSelected() ? (
           <>
