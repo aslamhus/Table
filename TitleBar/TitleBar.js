@@ -21,11 +21,10 @@ export default function TitleBar({ title, onFilterChange, onDelete, children }) 
        * an array of ids of the selected rows
        */
       setDeleting(true);
-      console.log('selectedRows', selectedRows);
       const selectedRowsArray = Object.keys(selectedRows);
       await Promise.resolve(onDelete(getSelectedRowData(selectedRowsArray)))
         .catch((error) => {
-          console.error('there was an error thrown from onDelete');
+          console.error('there was an error thrown from onDelete', error);
         })
         .then(() => {
           removeRows(selectedRowsArray);
