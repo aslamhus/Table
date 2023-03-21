@@ -56,7 +56,7 @@ const Table = ({
     <div>
       <div className={`table ${className}`} style={{ ...style }}>
         {/* TitleBar */}
-        {renderSubComponent(TitleBar, children, onFilterChange, onDelete)}
+        {renderSubComponent(TitleBar, children, { onFilterChange, onDelete })}
         {/* Pagination */}
         {renderSubComponent(Pagination, children)}
         {/* Head */}
