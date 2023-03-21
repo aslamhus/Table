@@ -10,8 +10,7 @@ export default function Head({ children }) {
     selectAll,
     setOrder,
     setHeaders,
-    enableCheckbox,
-    state: { orderOption },
+    state: { orderOption, enableCheckbox },
   } = useTable();
   let headers = [];
   const renderHeaderCells = () => {

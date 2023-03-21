@@ -1,6 +1,5 @@
 import React, { useEffect, useRef } from 'react';
 import { findByType } from '../utils/utils';
-import { useTable } from '../hooks/useTable';
 import Cells from '../Cells';
 /**
  * 
@@ -24,8 +23,14 @@ import Cells from '../Cells';
         );
       })}
  */
-function Row({ rowId, rowData, as, className, children, selected }) {
+function Row(props) {
+  const { rowId, rowData, as, className, onClick, selected, children } = props;
   const TagName = as || 'div';
+  const handleClick = (event) => {
+    if (onClick instanceof Function) {
+      onClick(rowId, rowData, selected);
+    }
+  };
 
   const render = (ComponentType, props) => {
     let [child] = findByType(children, ComponentType);
@@ -50,6 +55,7 @@ function Row({ rowId, rowData, as, className, children, selected }) {
         table-row 
         ${className ? className : ''}
          ${selected ? 'selected' : ''}`}
+      onClick={handleClick}
     >
       <div className="table-row-btn-wrapper">
         <div className="table-left-btns-container">{render(LeadingButtons)}</div>

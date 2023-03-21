@@ -16,17 +16,14 @@ export const renderSubComponent = (ComponentType, children, additionalProps) => 
 };
 
 export const renderRow = (children, additionalProps) => {
-  console.log('render Rows', children);
   // if there are no customized rows render default rows(i.e. Children of Table.Body)
   if (!children) {
     return <Row key={Date.now() + Math.random() * 99999} {...additionalProps} columnId={0} />;
   }
-  // console.log('no children?', children);
-
   return React.Children.map(children, (Component, index) => {
     const Type = Component?.type;
     if (!Type) return null;
     const ComponentProps = Component?.props || {};
-    return <Type {...ComponentProps} {...additionalProps} columnId={index} />;
+    return <Type {...ComponentProps} {...additionalProps} data-my-test={2} columnId={index} />;
   });
 };
