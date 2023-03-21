@@ -25,6 +25,11 @@ import Cells from '../Cells';
  */
 function Row(props) {
   const { rowId, rowData, as, className, onClick, selected, children } = props;
+  if (!rowId) {
+    throw new Error(
+      'Table row id was null. If you are implementing a custom Row, making sure you pass all props from your custom component to Table.Row. For example:const MyComponent = (props) =>  <Table.Row {...props}/>'
+    );
+  }
   const TagName = as || 'div';
 
   /**
