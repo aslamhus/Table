@@ -26,7 +26,17 @@ import Cells from '../Cells';
 function Row(props) {
   const { rowId, rowData, as, className, onClick, selected, children } = props;
   const TagName = as || 'div';
+
+  /**
+   * Handle row click
+   *
+   * Clicking on a row prevented if click target cell is a checkbox
+   * @param {*} event
+   * @returns
+   */
   const handleClick = (event) => {
+    const { target } = event;
+    if (target.closest('.table-cell-checkbox')) return;
     if (onClick instanceof Function) {
       onClick(rowId, rowData, selected);
     }
