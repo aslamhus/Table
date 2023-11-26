@@ -10,10 +10,10 @@ export default function Head({ children }) {
     selectAll,
     setOrder,
     setHeaders,
-    enableCheckbox,
-    state: { orderOption },
+    state: { orderOption, enableCheckbox },
   } = useTable();
   let headers = [];
+
   const renderHeaderCells = () => {
     const headerCells = findByType(children, Cell);
     if (headerCells && headerCells.length > 0) {
@@ -68,7 +68,7 @@ export default function Head({ children }) {
       <div className={`th-container `}>
         {renderHeaderCells()}
         {enableCheckbox && (
-          <div className="cell-xxs cell-center">
+          <div className="cell-xxs cell-center header-cell">
             <input onChange={selectAll} type="checkbox" id="check-all" checked={isSelected()} />
           </div>
         )}
