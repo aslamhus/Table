@@ -74,11 +74,10 @@
 .table .th {
   background: darkgray;
   color: white;
-  position: -webkit-sticky !important;
-  position: sticky !important;
+  position: -webkit-sticky;
+  position: sticky;
   top: 0;
   z-index: 1;
-  align-self: flex-start;
   height: auto;
   /* width: calc(100% + 10px); */
   /* margin-left: -5px; */
@@ -149,14 +148,16 @@
   width: 10%;
 }
 .cell-sm {
-  width: 65px;
+  width: 100px;
 }
 .cell-xs {
-  width: 45px;
+  width: 75px;
 }
 .cell-xxs {
   /** Select checkbox cell, cannot have variable width **/
-  width: 30px !important;
+  flex-grow: 0 !important;
+  flex-shrink: 0;
+  width: 60px !important;
 }
 .cell-hidden {
   visibility: hidden;
@@ -175,7 +176,8 @@
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: center !important;
+  align-items: center !important;
 }
 .table [class^='cell'] {
   display: flex;
@@ -183,10 +185,10 @@
   justify-content: center;
 }
 /** Header cell **/
-.table .th .th-container > div {
+.table .header-cell {
   display: flex;
   align-items: flex-start;
-  /* justify-content: flex-start; */
+  justify-content: flex-start;
 }
 .th-container button {
   background: none;
