@@ -21,7 +21,6 @@ export default function TitleBar({ title, onFilterChange, onDelete, children }) 
        * an array of ids of the selected rows
        */
       setDeleting(true);
-      console.log('selectedRows', selectedRows);
       const selectedRowsArray = Object.keys(selectedRows);
       await Promise.resolve(onDelete(getSelectedRowData(selectedRowsArray)))
         .catch((error) => {
@@ -75,15 +74,23 @@ export default function TitleBar({ title, onFilterChange, onDelete, children }) 
     <div className="title-bar">
       {title && <h3>{title}</h3>}
       <div className="table-sticky-buttons">
-        <div className="filter">
-          <label htmlFor="filter">Filter</label>
-          <input type="text" name="filter" value={filterInputValue} onChange={handleChange}></input>
-        </div>
+        {/* Filter input (only display if onFilterChange set) */}
+        {onFilterChange && (
+          <div className="filter">
+            <label htmlFor="filter">Filter</label>
+            <input
+              type="text"
+              name="filter"
+              value={filterInputValue}
+              onChange={handleChange}
+            ></input>
+          </div>
+        )}
         {children}
         {isSelected && isSelected() ? (
           <>
             <Button
-              title="delete feedbac"
+              title="delete selected rows"
               onClick={handleDelete}
               className="danger"
               disabled={deleting}
