@@ -45,8 +45,6 @@ const Table = ({
     );
   }, [dataSource]);
 
-  useEffect(() => {}, []);
-
   /**
    * To do:
    *

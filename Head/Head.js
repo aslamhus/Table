@@ -68,7 +68,7 @@ export default function Head({ children }) {
       <div className={`th-container `}>
         {renderHeaderCells()}
         {enableCheckbox && (
-          <div className="cell-xxs cell-center header-cell">
+          <div className="cell-xxs cell-center cell header-cell">
             <input onChange={selectAll} type="checkbox" id="check-all" checked={isSelected()} />
           </div>
         )}

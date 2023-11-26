@@ -15,16 +15,12 @@ const Cells = ({ rowData, rowId, children, selected }) => {
     // custom Cells
     if (children) return children;
     // default Cells
-    // console.log('rowData', rowData);
-    console.log('header keys', headers.keys());
     const cells = [];
     headers.forEach((value, key) => cells.push(key));
-    console.log('cells', cells);
     return cells.map((key, index) => {
       //   if (key == 'uuid') return null;
       const header = headers.get(key);
       const value = rowData[key];
-      console.log('header', header, value);
       return (
         <Cell key={`cell-${key}-${index}-rowId`} size={header.size}>
           <p>
