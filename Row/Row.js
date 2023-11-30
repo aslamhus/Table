@@ -24,7 +24,7 @@ import Cells from '../Cells';
         );
       })}
  */
-function Row({ rowId, rowData, as, className, children, selected }) {
+function Row({ rowId, rowData, as, className, children, selected, onClick }) {
   const TagName = as || 'div';
 
   const render = (ComponentType, props) => {
@@ -51,7 +51,7 @@ function Row({ rowId, rowData, as, className, children, selected }) {
         ${className ? className : ''}
          ${selected ? 'selected' : ''}`}
     >
-      <div className="table-row-btn-wrapper">
+      <div className="table-row-btn-wrapper" onClick={(event) => onClick(event, rowData)}>
         <div className="table-left-btns-container">{render(LeadingButtons)}</div>
         {renderCells({
           rowId,

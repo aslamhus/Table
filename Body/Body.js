@@ -35,7 +35,6 @@ import { renderRow } from '../utils/render';
  * }
  */
 export default function Body({ data, children, selectedRows }) {
-  console.log('body data', data);
   return (
     <div className="table-body">
       {data.map((rowData, index) => {
