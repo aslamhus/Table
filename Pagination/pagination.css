@@ -16,7 +16,7 @@
   font-size: 1em;
 }
 /** Pagination buttons **/
-.pagination .pagination-btn {
+.pagination button {
   background: transparent;
   border: 1px solid gray;
   margin: 0 0.25rem;
@@ -29,4 +29,20 @@
 .pagination .pagination-page-stats {
   display: flex;
   align-items: center;
+}
+/** pagination list **/
+.pagination .pagination-page-list {
+  display: flex;
+  align-items: flex-end;
+}
+/* go to **/
+.pagination .pagination-page-list .go-to-page-container {
+  height: 100%;
+  padding: 0;
+  margin-left: 1rem;
+}
+.go-to-page-container input,
+.go-to-page-container button {
+  font-size: 1em;
+  height: 100%;
 }
