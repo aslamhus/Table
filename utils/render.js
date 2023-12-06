@@ -4,7 +4,6 @@ import { findByType } from './utils';
 
 export const renderSubComponent = (ComponentType, children, additionalProps) => {
   const [component] = findByType(children, ComponentType);
-
   if (component) {
     return (
       <ComponentType {...component.props} {...additionalProps}>

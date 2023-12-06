@@ -1,17 +1,24 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState, useMemo } from 'react';
 import Button from 'react-bootstrap/Button';
 import Spinner from 'react-bootstrap/Spinner';
 import { useTable } from '../hooks/useTable';
 import './title-bar.css';
 
-export default function TitleBar({ title, onFilterChange, onDelete, children }) {
+export default function TitleBar({
+  title,
+  onFilterChange,
+  initialFilterValue = '',
+  filterTitle = 'Filter',
+  onDelete,
+  children,
+}) {
   const {
     isSelected,
     removeRows,
-    state: { data, selectedRows },
-  } = useTable({});
+    setFilterValue,
+    state: { data, selectedRows, filter },
+  } = useTable();
 
-  const [filterInputValue, setFilterInputValue] = useState('');
   const [deleting, setDeleting] = useState(false);
 
   const handleDelete = async (event) => {
@@ -43,6 +50,7 @@ export default function TitleBar({ title, onFilterChange, onDelete, children }) 
 
   const debounce = (fn, delay) => {
     let timeout;
+
     return (...args) => {
       if (timeout) {
         clearTimeout(timeout);
@@ -53,22 +61,27 @@ export default function TitleBar({ title, onFilterChange, onDelete, children }) 
     };
   };
 
-  const debounceSetFilterOption = useCallback(
-    debounce(function (value) {
-      if (onFilterChange instanceof Function) {
-        onFilterChange(value);
-      }
-    }, 1000),
-    []
-  );
+  const handleFilterCallback = (value) => {
+    if (onFilterChange instanceof Function) {
+      onFilterChange(value);
+    }
+  };
+
+  const debounceFilterCallback = useCallback(debounce(handleFilterCallback, 2000), []);
 
   const handleChange = (event) => {
     const {
       target: { value },
     } = event;
-    setFilterInputValue(value);
-    debounceSetFilterOption(value);
+    setFilterValue(value);
+    debounceFilterCallback(value);
   };
+
+  useEffect(() => {
+    if (initialFilterValue) {
+      setFilterValue(initialFilterValue);
+    }
+  }, []);
 
   return (
     <div className="title-bar">
@@ -77,13 +90,8 @@ export default function TitleBar({ title, onFilterChange, onDelete, children }) 
         {/* Filter input (only display if onFilterChange set) */}
         {onFilterChange && (
           <div className="filter">
-            <label htmlFor="filter">Filter</label>
-            <input
-              type="text"
-              name="filter"
-              value={filterInputValue}
-              onChange={handleChange}
-            ></input>
+            <label htmlFor="filter">{filterTitle}</label>
+            <input type="text" name="filter" value={filter} onChange={handleChange}></input>
           </div>
         )}
         {children}

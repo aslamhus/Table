@@ -1,5 +1,6 @@
 import React from 'react';
 import Dropdown from 'react-bootstrap/Dropdown';
+import { useTable } from '../../hooks/useTable';
 
 const PageStats = ({
   currentPage,
@@ -11,6 +12,7 @@ const PageStats = ({
 }) => {
   let hi = currentPage * pageLimit;
   const lo = hi - pageLimit + 1;
+
   if (hi > totalItems) hi = totalItems;
 
   const handleDropDownChange = (item) => {

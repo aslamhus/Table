@@ -9,7 +9,7 @@ import { actions } from '../Context/reducer';
  */
 export const useTable = () => {
   const [state, dispatch] = useContext(TableContext);
-  const { data, selectedRows, enableCheckbox, callbacks, headers, orderOption } = state;
+  const { data, selectedRows, enableCheckbox, callbacks, headers, orderOption, filter } = state;
 
   const selectRows = (rows) => dispatch({ type: actions.selectRows, payload: rows });
 
@@ -20,7 +20,13 @@ export const useTable = () => {
 
   const setEnableCheckbox = (bool) => dispatch({ type: actions.setEnableCheckbox, payload: bool });
 
+  /**
+   * Sets the table header cells
+   * @returns
+   */
   const setHeaders = (headers) => dispatch({ type: actions.setHeaders, payload: headers });
+
+  const setFilterValue = (value) => dispatch({ type: actions.setFilterValue, payload: value });
 
   const setOrderOption = ({ name, direction, columnId }) =>
     dispatch({ type: actions.setOrderOption, payload: { name, direction, columnId } });
@@ -94,12 +100,14 @@ export const useTable = () => {
     setCallbacks,
     setHeaders,
     setEnableCheckbox,
+    setFilterValue,
     state: {
       data,
       selectedRows,
       orderOption,
       headers,
       enableCheckbox,
+      filter,
     },
   };
 };

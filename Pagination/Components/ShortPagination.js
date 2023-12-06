@@ -1,5 +1,6 @@
 import React from 'react';
 import PageButton from './PageButton';
+import { createArrayOfLength } from '../utils';
 
 /**
  * Short pagination
